@@ -1,1 +1,2 @@
-# Bayesian Modeling Data Analysis, Beta-carotene project
+# Bayesian Modeling Data Analysis 
+## Beta-carotene project
