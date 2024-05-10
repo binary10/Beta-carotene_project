@@ -17,7 +17,7 @@ library(coda)
 library(dplyr)
 library(ggplot2)
 library(data.table)
-
+library(gridExtra)
 ```
 
 ## 1. Abstract
@@ -123,13 +123,29 @@ c = bc_data %>%
            c1c2 = (lag_bc + bcarot),
            AUC_linear = c1c2/2,
            mean_AUC_L = mean(AUC_linear, na.rm=T))
+
+
+bc_data %>%
+    dplyr::filter(month == 6 & dose == 30) %>%
+    ggplot(aes(x=bcarot)) +
+    geom_histogram()
+
+
+
+
+bc_data %>% filter(dose == 0 | month %in% c(0,1,2,3))%>%
+    ggplot(aes(x=bcarot))+
+    geom_histogram(aes(col="black"))+
+    theme_minimal()
 ```
+
 
 
 In this dataset, there are 46 volunteers who were randomly assigned to receive one of five doses of beta-carotene (0, 15, 30, 45, or 60 mg/day) for up to 15 months in a double-blind manner. Each volunteer's progress was monitored monthly, resulting in a total of 699 observations. The dataset contains 11 variables for each observation: *ptid* (patient ID): a unique identification number assigned to each of the 46 patients, *month*: Indicates the month of the study, with values ranging from 0 to 15. Months 0 to 3 serve as a baseline, and the beta-carotene treatment begins at month 4. Note that some patients have fewer than 15 months of data. *bcarot* (Plasma beta-carotene levels): the concentration of beta-carotene in the patient's blood, measured in micrograms per milliliter. *vite* (Plasma vitamin E levels): The concentration of vitamin E in the patient's blood, measured in micrograms per milliliter. *dose* (Dose of beta-carotene): The amount of beta-carotene administered to the patient daily as part of the treatment. *age*: The age of the patient. *male*: An indicator variable that denotes the patient's gender. *bmi*: (Body Mass Index): A measure of the patient's body weight in relation to their height. *chol*: (Serum cholesterol level): The level of cholesterol in the patient's blood, measured in milligrams per deciliter *cauc* (Area under curve for serum beta-carotene): The average level of serum beta-carotene over the months 4 and onwards. *vauc* (Area under curve for serum vitamin E): The average level of serum vitamin E over the months 4 and onwards. 
 
+Patient number 46 showed an unusual increase in beta-carotene levels at month 4, reaching 2452 ($\mu g/ml$), which is significantly higher than the average baseline level of 297.37 ($\mu g/ml$). Although the levels returned to normal after month 10, this behavior led us to remove this patient from the study. Patient number 40 was excluded from the study as he only participated in the baseline period, without taking any treatment. Patient number 24, initially categorized in the placebo group with a dose of 0, unexpectedly received a dose of 30 only at month 0. Considering the preceding patient (ptid 23) was assigned to the dose 30 group, this inconsistency seems to be a  typographical error therefore, we corrected the dose to 0. For some patients, we have two sets of data at the same month regarding their beta-carotene. We have decided to retain both values for our analysis. Patient 26 which is in placebo group (zero dose) shows an unusual behavior in their beta-carotene level during the 13th month, recording a value of 1014. This value stood out as it was higher than both the preceding month's value of 114 and the next month's value of 218. We have decided to retain this data point in our analysis. Additionally, we identified and removed six missing values from the dataset which seems randomly distributed through the data.
 
-Patient number 46 showed an unusual increase in beta-carotene levels at month 4, reaching 2452 ($\mu g/ml$), which is significantly higher than the average baseline level of 297.37 ($\mu g/ml$). Although the levels returned to normal after month 10, this behavior led us to remove this patient from the study. Patient number 40 was excluded from the study as he only participated in the baseline period, without taking any treatment. Patient number 24, initially categorized in the placebo group with a dose of 0, unexpectedly received a dose of 30 only at month 0. Considering the preceding patient (ptid 23) was assigned to the dose 30 group, this inconsistency seems to be a  typographical error therefore, we corrected the dose to 0. Additionally, we identified and removed six missing values from the dataset which seems randomly distributed through the data.
+It is important to note that we tried to estimate the missing value by using the Area Under the Curve (AUC) calculations, for the *cauc* and *vauc* variable, available in the dataset. However, due to the existence of multiple methods and formulas for AUC calculation, we could not find any approach that resulted in an AUC value consistent with our dataset. Therefore, further investigation about the origin of data (AUC formula) is necessary for this analysis.
 
 The distribution of vitamin E levels appears to be right-skewed, with a mean of `r round(mean(bc_data$vite), 2)` and a range between (`r round(min(bc_data$vite), 2)`, `r round(max(bc_data$vite), 2)`). This observation aligns with expectations, considering that the normal range for vitamin E in adults is between 5.5 and 17 ($\mu g/ml$).
 
@@ -213,7 +229,7 @@ ggplot(data = bc_data %>% filter(),
 
 ### (b) Models
 
-```{r, cashe = T}
+```{r, cashe = F}
 ##  Set MCMC parameters.
 chains <- 1           ##  One chain of MCMC values is obtained
 burn_in <- 1000       ##  The first 1000 iterates from the MCMC chain are discarded
@@ -271,6 +287,7 @@ bc_modelstring<-"model
 	  }
   	tau_bc ~ dgamma(0.001, 0.001)
 	  tau_g ~ dgamma(0.001, 0.001)
+  	
   	sigma_bc <- pow(tau_bc,-0.5)
 	  sigma_g <- pow(tau_g,-0.5)
   }"
@@ -328,6 +345,7 @@ plot_densities(posterior_sigmas)
 
 ### (c) Model-Building / Model-Checking:
 
+we assume (or maybe check) the ovariate are independence. 
 
 ## 5. Discussion:
 
@@ -335,6 +353,22 @@ plot_densities(posterior_sigmas)
 
 ## 7. Appendix:
 
+```{r echo = F, fig.cap="Beta Carotin behavier for patient 1 (top) and patient 26 (bottom) during treatment period"}
+p1 <- bc_data %>%
+    dplyr::filter(ptid == 1) %>%
+    ggplot(aes(x=month, y=bcarot)) +
+    geom_line()+
+    geom_point()+
+    theme_minimal()
+p26 <- bc_data %>%
+    dplyr::filter(ptid == 26) %>%
+    ggplot(aes(x=month, y=bcarot)) +
+    geom_line()+
+    geom_point()+
+    theme_minimal()
+
+combined_p1p2 <- grid.arrange(p1, p26, ncol = 1, nrow=2)
+```
 
 
 In the field of pharmacokinetics, the area under the curve (AUC) is the definite integral of the concentration of a drug in blood plasma as a function of time (this can be done using liquid chromatography–mass spectrometry[1]). In practice, the drug concentration is measured at certain discrete points in time and the trapezoidal rule is used to estimate AUC. In pharmacology, the area under the plot of plasma concentration of a drug versus time after dosage (called “area under the curve” or AUC) gives insight into the extent of exposure to a drug and its clearance rate from the body. The AUC (from zero to infinity) represents the total drug exposure across time.
