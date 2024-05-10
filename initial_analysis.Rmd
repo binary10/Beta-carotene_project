@@ -79,7 +79,7 @@ vauc <- bc_data$vauc
 
 ### a) Background 
 
-Beta-carotene is a natural pigment found in plants, giving them their orange colors. It is a provitamin A, meaning the body uses it to make vitamin A, which is essential for maintaining healthy vision, skin, and immune function. However, high doses over a long time can lead to a condition called carotenemia, resulting in a yellowish-orange tint to the skin. Therefore, understanding how Beta-carotene moves through the body is crucial. 
+Beta-carotene is a natural pigment found in plants, giving them their orange colors. It is a provitamin A, meaning the body uses it to make vitamin A, which is essential for maintaining healthy vision, skin, and immune function. However, high doses over a long time can lead to a condition called carotenemia, resulting in a yellowish-orange tint to the skin.
 
 Pharmacokinetic studies, also known as PK studies, are a type of research in pharmacology to investigate the effect of a drug on body. One common topic for PK studies is how a drug builds up in bloodstream over time. These type of studies collecting blood, to measure the concentration of the drug in the blood plasma. In this study, researchers investigated the concentration of Beta-carotene in 46 patients who received different doses of the treatment. This data helps researchers to understand how Beta-carotene behaves in the body over time, providing valuable insights for clinical practice.
 
