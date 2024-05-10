@@ -86,7 +86,7 @@ Pharmacokinetic studies, also known as PK studies, are a type of research in pha
 
 ### b) Questions of Interest
 
-The specific aim of this study is to (1) determine how different dose levels of beta-carotene affected the serum beta-carotene levels in blood over time. In addition to measuring the plasma concentrations of beta-carotene by dose, we are also interested in examining (2) whether there is any effect of beta-carotene supplementation on vitamin E levels in the plasma. Since both betacarotene and vitamin E are lipid soluble (they are dissolved in fats rather than water), it might be possible that serum vitamin E levels are correlated with serum beta-carotene levels over time. also we are interested (3) whether the effect of treatment on serum beta-carotene differs by age, gender, BMI, or cholesterol. 
+The specific aim of this study is to (1) determine how different dose levels of beta-carotene affected the serum beta-carotene levels in blood over time. In addition to measuring the plasma concentrations of beta-carotene by dose, we are also interested in examining (2) whether there is any effect of beta-carotene supplementation on vitamin E levels in the plasma. Since both beta carotene and vitamin E are lipid soluble (they are dissolved in fats rather than water), it might be possible that serum vitamin E levels are correlated with serum beta-carotene levels over time. We are also interested in (3) whether there are interactions between  treatment and age, gender, BMI, or cholesterol. 
 
 
 ## 3. Materials and Methods:
