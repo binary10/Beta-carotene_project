@@ -160,6 +160,11 @@ The distribution of vitamin E levels appears to be right-skewed, with a mean of 
 
 ### (a) Descriptive Statistics:
 
+To explore the primary aim of the study to examine how treatment affects serum beta carotene levels, we plotted a line graph of serum beta carotene levels against months for each patient. This information is also presented in a time series of box blots faceted by the dosage level. For the control of zero dosage level, there is no change in beta carotene level with time. For the other positive dosage levels, serum beta carotene is close to zero, and then during the treatment period the serum values increase. It appears that the change from baseline serum levels is greater for larger dosage values on average. 
+
+Across the positive dosages treatment levels and while patients are on treatment after month 3, there appears to be constant serum levels until month 10, after which a spike occurs during months 11 and 12, which is then followed b a sharp decrease in months 13, 14, and 15. 
+
+To examine the secondary aim of the study, we also plotted a line graph of vitamin E levels over time, grouped by treatment. In this graph, vitamin E levels appear to be flat during the placebo period during months 0-3, then there appears to be a slight increase until month 8 when the levels decrease (corresponding to just before the serum beta carotene levels spike in month 11). During months 12-15, levels appear to be constant, however they are lower than the baseline serum levels during the placebo period. 
 
 
 
@@ -383,9 +388,4 @@ combined_p1p2 <- grid.arrange(p1, p26, ncol = 1, nrow=2)
 
 
 In the field of pharmacokinetics, the area under the curve (AUC) is the definite integral of the concentration of a drug in blood plasma as a function of time (this can be done using liquid chromatography–mass spectrometry[1]). In practice, the drug concentration is measured at certain discrete points in time and the trapezoidal rule is used to estimate AUC. In pharmacology, the area under the plot of plasma concentration of a drug versus time after dosage (called “area under the curve” or AUC) gives insight into the extent of exposure to a drug and its clearance rate from the body. The AUC (from zero to infinity) represents the total drug exposure across time.
-
-
-
-
-
 
