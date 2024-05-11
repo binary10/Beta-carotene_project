@@ -2,7 +2,7 @@
 title: "Bayesian Data Analysis Project"
 author: ""
 date: ""
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -159,6 +159,26 @@ The distribution of vitamin E levels appears to be right-skewed, with a mean of 
 ## 4. Results
 
 ### (a) Descriptive Statistics:
+
+
+
+
+
+### (c) Model-Building / Model-Checking:
+
+we assume (or maybe check) the ovariate are independence. 
+
+
+## 5. Discussion:
+
+
+## 6. Bibliography:
+
+
+## 7. Appendix:
+
+### Plots
+
 
 ```{r echo=F}
 ggplot(data = bc_data,
@@ -343,17 +363,6 @@ plot_densities(posterior_gammas[,33:43])
 plot_densities(posterior_sigmas)
 ```
 
-
-
-### (c) Model-Building / Model-Checking:
-
-we assume (or maybe check) the ovariate are independence. 
-
-## 5. Discussion:
-
-## 6. Bibliography:
-
-## 7. Appendix:
 
 ```{r echo = F, fig.cap="Beta Carotin behavier for patient 1 (top) and patient 26 (bottom) during treatment period"}
 p1 <- bc_data %>%
